@@ -1,0 +1,32 @@
+client :
+  
+create input file: sudo gedit input.txt
+
+paste input: vi input.txt
+
+hdfs dfs -mkdir /rohith
+hdfs dfs -put input.txt /rohith/
+
+
+
+master:
+
+create pig file
+sudo gedit sample.pig
+enter pass:hdoop
+
+in pig script 
+data = LOAD '/rohith/input.txt' USING PigStorage(',') AS (id:int, name:chararray, date:chararray, number:int);
+change the colums accordingly
+
+
+enter the code and save
+
+
+run it using :pig -x mapreduce sample.pig
+
+
+pig -x local sample.pig
+
+
+
