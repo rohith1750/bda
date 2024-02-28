@@ -18,7 +18,8 @@ cat input.txt | python3 mapper.py | sort | python3 reducer.py
 
 now to send it to hadoop
 hdfs dfs -mkdir /rohith
-hdfs dfs -put input.txt/rohith/
+hdfs dfs -put input.txt /rohith/
+
 
 now to run the jar command
 
