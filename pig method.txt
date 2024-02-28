@@ -17,10 +17,32 @@ enter pass:hdoop
 
 in pig script 
 data = LOAD '/rohith/input.txt' USING PigStorage(',') AS (id:int, name:chararray, date:chararray, number:int);
-change the colums accordingly
+
+data = LOAD 'input_file' AS (userid: chararray, timestamp: long, action: chararray);
+
+-- Group by userid and action
+grouped = GROUP data BY userid, action;
+
+-- Count the number of actions for each user-action combination
+counted = FOREACH grouped GENERATE userid, action, COUNT(data) AS action_count;
+
+-- Filter users with any action count greater than or equal to 3
+filtered = FILTER counted BY action_count >= 3;
+
+-- Project the user ID
+result = FOREACH filtered GENERATE userid;
+
+-- Store the results
+STORE result INTO '/rohith/out';
 
 
-enter the code and save
+
+
+
+
+
+
+
 
 
 run it using :pig -x mapreduce sample.pig
